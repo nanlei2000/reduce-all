@@ -1,5 +1,5 @@
 /**
- *  implement map user `Array.prototype.reduce`
+ *  implement map use `Array.prototype.reduce`
  * @param {any[]} list
  * @param {Function} fn
  */
@@ -9,7 +9,7 @@ function map(list, fn) {
   }, [])
 }
 /**
- *  implement filter user `Array.prototype.reduce`
+ *  implement filter use `Array.prototype.reduce`
  * @param {any[]} list
  * @param {Function} fn
  */
@@ -19,7 +19,7 @@ function filter(list, fn) {
   }, [])
 }
 /**
- *  implement every user `Array.prototype.reduce`(without break)
+ *  implement every use `Array.prototype.reduce`(without break)
  * @param {any[]} list
  * @param {Function} fn
  */
@@ -29,7 +29,7 @@ function every(list, fn) {
   }, true)
 }
 /**
- *  implement some user `Array.prototype.reduce`(without break)
+ *  implement some use `Array.prototype.reduce`(without break)
  * @param {any[]} list
  * @param {Function} fn
  */
