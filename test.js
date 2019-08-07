@@ -1,8 +1,19 @@
-const { map, filter, every, some } = require('./index')
+const {
+  map,
+  filter,
+  every,
+  some,
+  find,
+  findIndex,
+  flatMap,
+  mapFlat,
+  reverse,
+  join,
+  indexOf,
+} = require('./index')
 const assert = require('assert')
 const list = [1, 2, 3]
-const stringList = ['1', '2', '3']
-const listGreaterThanTwo = [3]
+const nestedList = [1, [[[[[[[2]]]]]]], 3]
 assert.deepStrictEqual(
   map(list, item => {
     return String(item)
@@ -43,3 +54,38 @@ assert.deepStrictEqual(
     return item > 1
   })
 )
+assert.deepStrictEqual(
+  find(list, (item, index) => {
+    return index === 1
+  }),
+  list.find((item, index) => {
+    return index === 1
+  })
+)
+assert.deepStrictEqual(
+  findIndex(list, (item, index) => {
+    return item === 2
+  }),
+  list.findIndex((item, index) => {
+    return item === 2
+  })
+)
+assert.deepStrictEqual(
+  flatMap(list, (item, index) => {
+    return [item * 2]
+  }),
+  [2, 4, 6]
+)
+assert.deepStrictEqual(
+  mapFlat(nestedList, (item, index) => {
+    return item * 2
+  }),
+  [2, 4, 6]
+)
+assert.deepStrictEqual(mapFlat(nestedList), list)
+assert.deepStrictEqual(reverse(list), list.reverse())
+assert.deepStrictEqual(reverse([]), [].reverse())
+assert.deepStrictEqual(join([]), [].join())
+assert.deepStrictEqual(join(list, '-'), list.join('-'))
+assert.deepStrictEqual(indexOf(list, 2), list.indexOf(2))
+assert.deepStrictEqual(indexOf(list, 0), list.indexOf(0))
