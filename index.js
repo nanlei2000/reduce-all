@@ -121,6 +121,85 @@ function indexOf(list, searchElement) {
   }, -1)
 }
 
+/**
+ *  implement includes use `Array.prototype.reduce`(without break)
+ * @param {any[]} list
+ * @param {any} searchElement
+ * @returns {Boolean}
+ */
+function includes(list, searchElement) {
+  return list.reduce((prev, cur, index) => {
+    return cur === searchElement ? true : prev
+  }, false)
+}
+
+/**
+ *  implement lodash.countBy use `Array.prototype.reduce`
+ * @param {any[]} list
+ * @param {Function} fn
+ * @returns {{}}
+ */
+function countBy(list, fn) {
+  return list.reduce((prev, cur) => {
+    // 只有一个参数
+    const key = fn(cur)
+    prev[key] ? (prev[key] += 1) : (prev[key] = 1)
+    return prev
+  }, {})
+}
+/**
+ *  implement lodash.groupBy use `Array.prototype.reduce`
+ * @param {any[]} list
+ * @param {Function} fn
+ * @returns {{}}
+ */
+function groupBy(list, fn) {
+  return list.reduce((prev, cur) => {
+    // 只有一个参数
+    const key = fn(cur)
+    Array.isArray(prev[key])
+      ? (prev[key] = prev[key].concat([cur]))
+      : (prev[key] = [cur])
+    return prev
+  }, {})
+}
+/**
+ *  implement lodash.partition use `Array.prototype.reduce`
+ * @param {any[]} list
+ * @param {Function} fn
+ * @returns {any[][]}
+ */
+function partition(list, fn) {
+  return list.reduce(
+    (prev, cur) => {
+      const truthyIndex = 0
+      const falseyIndex = 1
+      fn(cur) ? prev[truthyIndex].push(cur) : prev[falseyIndex].push(cur)
+      return prev
+    },
+    [[], []]
+  )
+}
+
+/**
+ *  implement lodash.chunk use `Array.prototype.reduce`
+ * @param {any[]} list
+ * @param {number} size
+ * @returns {any[][]}
+ */
+function chunk(list, size = 1) {
+  size = Math.floor(size)
+  if (size === 0) {
+    return []
+  }
+  return list.reduce((prev, cur, index) => {
+    const lastIndex = prev.length - 1
+    return index % size === 0 /**是否是 chunk 开头 */
+      ? [...prev, [cur]]
+      : [...prev.slice(0, lastIndex), [...prev[lastIndex], cur]]
+  }, [])
+}
+
 module.exports = {
   map,
   filter,
@@ -133,4 +212,9 @@ module.exports = {
   reverse,
   join,
   indexOf,
+  chunk,
+  groupBy,
+  partition,
+  countBy,
+  includes,
 }
